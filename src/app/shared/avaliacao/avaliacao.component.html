@@ -1,0 +1,6 @@
+<i *ngFor="let n of notas" class="fa"
+[class.fa-star]="n <= nota"
+[class.fa-star-o]="n > nota"
+(click)="avaliar(n)"
+(mouseenter)="avaliarTemporariamente(n)"
+(mouseleave)="limparAvaliacaoTemporaria()"></i>
