@@ -4,7 +4,8 @@ class Compra {
     public numero: number,
     public complemento: string,
     public formaPagamento: string,
-    public itensCompra: ItemCompra[] = []
+    public itensCompra: ItemCompra[] = [],
+    public id?: string
   ) { }
 }
 

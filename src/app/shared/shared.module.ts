@@ -9,20 +9,21 @@ import { RestaurantesService } from '../restaurantes/restaurantes.service';
 import { CompraService } from '../compra/compra.service';
 import { SnackbarComponent } from './messages/snackbar/snackbar.component';
 import { NotificationService } from './messages/notification.service';
+import { LoginService } from '../security/login/login.service';
 
 @NgModule({
   declarations: [InputComponent, RadioComponent, AvaliacaoComponent, SnackbarComponent],
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
   exports: [InputComponent, RadioComponent,
-            AvaliacaoComponent, FormsModule,
+    AvaliacaoComponent, FormsModule,
     ReactiveFormsModule, CommonModule, SnackbarComponent]
 })
 
 export class SharedModule {
-  static forRoot (): ModuleWithProviders{
+  static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [CarrinhoService, RestaurantesService, CompraService, NotificationService]
+      providers: [CarrinhoService, RestaurantesService, CompraService, NotificationService, LoginService]
     }
   }
 }

@@ -20,8 +20,8 @@
           </p>
         </div>
 
-        <div class="col-xs-12 col-sm-3">
-            <span class="help-block pull-right has-error-block" *ngIf="compraForm.hasError('emailsNaoConferem')"><i class="fa fa-remove"></i> Emails não conferem</span>
+        <div class="col-xs-12 col-sm-3" *ngIf="compraForm.hasError('emailsNaoConferem')">
+            <span class="help-block pull-right has-error-block"><i class="fa fa-remove"></i> Emails não conferem</span>
         </div>
 
         <div class="col-sm-6 col-xs-12">

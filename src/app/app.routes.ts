@@ -6,9 +6,11 @@ import { MenuComponent } from 'app/restaurante-detalhe/menu/menu.component';
 import { ReviewsComponent } from 'app/restaurante-detalhe/reviews/reviews.component';
 import { CompraFinalizadaComponent } from 'app/compra-finalizada/compra-finalizada.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginComponent } from './security/login/login.component';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'about', loadChildren: './about/about.module#AboutModule' },
   { path: 'restaurantes', component: RestaurantesComponent },
   { path: 'restaurantes/:id', component: RestauranteDetalheComponent,

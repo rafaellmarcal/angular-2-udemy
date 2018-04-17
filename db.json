@@ -467,6 +467,30 @@
         }
       ],
       "id": 6
+    },
+    {
+      "nome": "rafael",
+      "email": "teste@email.com",
+      "emailConfirmacao": "teste@email.com",
+      "endereco": "Cataguases",
+      "numero": "319",
+      "complemento": "casa",
+      "formaPagamento": "MON",
+      "itensCompra": [
+        {
+          "quantidade": 3,
+          "menuId": "ceasar"
+        },
+        {
+          "quantidade": 2,
+          "menuId": "zlasagna"
+        },
+        {
+          "quantidade": 1,
+          "menuId": "greensandwich"
+        }
+      ],
+      "id": 7
     }
   ]
 }

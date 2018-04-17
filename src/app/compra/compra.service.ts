@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CarrinhoService } from 'app/restaurante-detalhe/carrinho/carrinho.service';
 import { CarrinhoItem } from 'app/restaurante-detalhe/carrinho/carrinho-item.model';
 import { Compra } from 'app/compra/compra.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { MEAT_API } from 'app/app.api';
+import { LoginService } from '../security/login/login.service';
 
 @Injectable()
 export class CompraService {
 
-  constructor(private carrinhoService: CarrinhoService, private http: Http) { }
+  constructor(private carrinhoService: CarrinhoService, private http: HttpClient, private loginService: LoginService) { }
 
   itensCarrinho(): CarrinhoItem[] {
     return this.carrinhoService.itens;
@@ -37,10 +38,13 @@ export class CompraService {
   }
 
   checarCompra(compra: Compra): Observable<string> {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post(`${MEAT_API}/orders`, JSON.stringify(compra), new RequestOptions({ headers: headers }))
-      .map(response => response.json())
+    let headers = new HttpHeaders();
+
+    if (this.loginService.isLoggedIn()) {
+      headers = headers.set('Authorization', `Bearer ${this.loginService.user.accessToken}`);
+    }
+
+    return this.http.post<Compra>(`${MEAT_API}/orders`, compra, { headers: headers })
       .map(compra => compra.id);
   }
 }
