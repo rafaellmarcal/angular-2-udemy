@@ -7,20 +7,26 @@ import { ReviewsComponent } from 'app/restaurante-detalhe/reviews/reviews.compon
 import { CompraFinalizadaComponent } from 'app/compra-finalizada/compra-finalizada.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './security/login/login.component';
+import { LoggedInGuard } from './security/loggedin.guard';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'login/:to', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'about', loadChildren: './about/about.module#AboutModule' },
-  { path: 'restaurantes', component: RestaurantesComponent },
-  { path: 'restaurantes/:id', component: RestauranteDetalheComponent,
+  {
+    path: 'restaurantes/:id', component: RestauranteDetalheComponent,
     children: [
       { path: '', redirectTo: 'menu', pathMatch: 'full' },
       { path: 'menu', component: MenuComponent },
       { path: 'reviews', component: ReviewsComponent }
     ]
   },
-  { path: 'compra', loadChildren: './compra/compra.module#CompraModule' },
+  { path: 'restaurantes', component: RestaurantesComponent },
+  {
+    path: 'compra', loadChildren: './compra/compra.module#CompraModule',
+    canLoad: [LoggedInGuard]
+  },
   { path: 'compra-finalizada', component: CompraFinalizadaComponent },
   { path: '**', component: NotFoundComponent }
 ];
