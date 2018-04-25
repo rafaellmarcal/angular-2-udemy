@@ -491,6 +491,34 @@
         }
       ],
       "id": 7
+    },
+    {
+      "nome": "rafael",
+      "email": "rafael@email.com",
+      "emailConfirmacao": "rafael@email.com",
+      "endereco": "Cataguases",
+      "numero": "319",
+      "complemento": "",
+      "formaPagamento": "MON",
+      "itensCompra": [
+        {
+          "quantidade": 3,
+          "menuId": "burger"
+        },
+        {
+          "quantidade": 1,
+          "menuId": "coke.png"
+        },
+        {
+          "quantidade": 2,
+          "menuId": "bread"
+        },
+        {
+          "quantidade": 1,
+          "menuId": "cake"
+        }
+      ],
+      "id": 8
     }
   ]
 }

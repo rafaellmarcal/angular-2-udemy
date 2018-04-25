@@ -25,7 +25,7 @@ export const ROUTES: Routes = [
   { path: 'restaurantes', component: RestaurantesComponent },
   {
     path: 'compra', loadChildren: './compra/compra.module#CompraModule',
-    canLoad: [LoggedInGuard]
+    canLoad: [LoggedInGuard], canActivate: [LoggedInGuard]
   },
   { path: 'compra-finalizada', component: CompraFinalizadaComponent },
   { path: '**', component: NotFoundComponent }

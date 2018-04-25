@@ -14,6 +14,7 @@ export class CompraComponent implements OnInit {
 
   compraForm: FormGroup;
   valorEntrega: number = 8;
+  compraId: string;
   numeroPattern = /^[0-9]*$/;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -74,12 +75,20 @@ export class CompraComponent implements OnInit {
     this.compraService.removerItem(item);
   }
 
+  compraFinalizada(): boolean {
+    return this.compraId !== undefined;
+  }
+
   checarCompra(compra: Compra) {
     compra.itensCompra = this.itensCarrinho()
       .map((item: CarrinhoItem) => new ItemCompra(item.quantidade, item.menuItem.id));
-    this.compraService.checarCompra(compra).subscribe((compraId: string) => {
-      this.compraService.limpar();
-      this.router.navigate(['/compra-finalizada']);
-    });
+    this.compraService.checarCompra(compra)
+      .do((compraId: string) => {
+        this.compraId = compraId;
+      })
+      .subscribe((compraId: string) => {
+        this.compraService.limpar();
+        this.router.navigate(['/compra-finalizada']);
+      });
   }
 }
