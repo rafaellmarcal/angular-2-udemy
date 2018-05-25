@@ -4,7 +4,8 @@ import { CompraService } from 'app/compra/compra.service';
 import { CarrinhoItem } from 'app/restaurante-detalhe/carrinho/carrinho-item.model';
 import { Compra, ItemCompra } from 'app/compra/compra.model';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'mt-compra',
@@ -44,15 +45,17 @@ export class CompraComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.compraForm = this.formBuilder.group({
-      nome: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
+    this.compraForm = new FormGroup({
+      nome: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(5)]
+      }),
       email: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
       emailConfirmacao: this.formBuilder.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
       endereco: this.formBuilder.control('', [Validators.required, Validators.minLength(5)]),
       numero: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numeroPattern)]),
       complemento: this.formBuilder.control(''),
       formaPagamento: this.formBuilder.control('', [Validators.required])
-    }, { validator: CompraComponent.equalsTo });
+    }, { validators: [CompraComponent.equalsTo], updateOn: 'blur' });
   }
 
   valorItens(): number {
@@ -83,9 +86,9 @@ export class CompraComponent implements OnInit {
     compra.itensCompra = this.itensCarrinho()
       .map((item: CarrinhoItem) => new ItemCompra(item.quantidade, item.menuItem.id));
     this.compraService.checarCompra(compra)
-      .do((compraId: string) => {
+      .pipe(tap((compraId: string) => {
         this.compraId = compraId;
-      })
+      }))
       .subscribe((compraId: string) => {
         this.compraService.limpar();
         this.router.navigate(['/compra-finalizada']);

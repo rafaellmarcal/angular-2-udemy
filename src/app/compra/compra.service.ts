@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CarrinhoService } from 'app/restaurante-detalhe/carrinho/carrinho.service';
 import { CarrinhoItem } from 'app/restaurante-detalhe/carrinho/carrinho-item.model';
 import { Compra } from 'app/compra/compra.model';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { MEAT_API } from 'app/app.api';
 
 @Injectable()
@@ -38,6 +38,6 @@ export class CompraService {
 
   checarCompra(compra: Compra): Observable<string> {
     return this.http.post<Compra>(`${MEAT_API}/orders`, compra)
-      .map(compra => compra.id);
+      .pipe(map(compra => compra.id));
   }
 }
